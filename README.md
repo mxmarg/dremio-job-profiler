@@ -1,0 +1,4 @@
+- Install Python package dependencies
+- Place Dremio job history (`queries.json` files) in queries/ folder
+- Specify profiling rules inside of `apply_alerting_rules()` function in `retrieve_job_profiles.py`
+- Run `python3 main.py "https://DREMIO_ENDPOINT" "DREMIO_ADMIN_USERNAME" "DREMIO_PAT_OR_PASSWORD"`
