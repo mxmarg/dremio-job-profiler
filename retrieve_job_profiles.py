@@ -38,13 +38,9 @@ def download_job_profile(DREMIO_ENDPOINT: str, auth_token: str, job_id: str):
     )
     
     if response.status_code == 200:
-        file = open("profiles/" + job_id + ".zip" , "wb")
-        file.write(response.content)
-        file.close()
+        return response.content
     else:
         print("Error " + str(response.status_code) + ": " + response.text)
-    
-    return response.content
 
 
 def collect_all_jobs(queries_dir) -> pd.DataFrame:
@@ -86,9 +82,9 @@ def apply_alerting_rules(job_index_rows, job_metrics_rows, job_operators_rows):
         if i["total_fragments"] is not None and (i["total_fragments"] != i["finished_fragments"]):
             print(f"WARNING: Only {i["finished_fragments"]} of {i["total_fragments"]} fragments have reported back")
     
-    for m in job_metrics_rows:
-        if not is_system_user and m["thread_state"] != 1:
-            print(f"WARNING: Thread {m['majorFragmentId']}-{m['minorFragmentId']}-XX has not completed. Thread state {m["thread_state"]}")
+    # for m in job_metrics_rows:
+    #     if not is_system_user and m["thread_state"] != 1:
+    #         print(f"WARNING: Thread {m['majorFragmentId']}-{m['minorFragmentId']}-XX has not completed. Thread state {m["thread_state"]}")
 
 
 
